@@ -82,7 +82,7 @@ export default function SalesManagement() {
                 <td style={{ padding: '12px', fontWeight: 600 }}>{i.customer}</td>
                 <td style={{ padding: '12px' }}>{i.date}</td>
                 <td style={{ padding: '12px' }}>{i.type}</td>
-                <td style={{ padding: '12px', fontWeight: 700, color: '#7c3aed' }}>${i.amount.toFixed(2)}</td>
+                <td style={{ padding: '12px', fontWeight: 700, color: '#7c3aed' }}>₹{i.amount.toFixed(2)}</td>
                 <td style={{ padding: '12px', textAlign: 'right' }}>
                   <span style={{ 
                     padding: '4px 8px', 

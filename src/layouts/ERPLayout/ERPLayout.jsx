@@ -56,50 +56,11 @@ export default function ERPLayout() {
     sales: false
   });
 
-  // Manage tabs state
-  const [tabs, setTabs] = useState([
-    { id: 'dashboard', name: 'Dashboard', path: '/dashboard' }
-  ]);
-  const [activeTabId, setActiveTabId] = useState('dashboard');
-
   const toggleSubmenu = (menu) => {
     setExpandedMenus(prev => ({
       ...prev,
       [menu]: !prev[menu]
     }));
-  };
-
-  const handleTabClick = (tab) => {
-    setActiveTabId(tab.id);
-    navigate(tab.path);
-  };
-
-  const addTab = (name, path) => {
-    const id = name.toLowerCase().replace(/\s+/g, '-');
-    if (tabs.find(t => t.id === id)) {
-      setActiveTabId(id);
-      navigate(path);
-      return;
-    }
-    const newTabs = [...tabs, { id, name, path }];
-    setTabs(newTabs);
-    setActiveTabId(id);
-    navigate(path);
-  };
-
-  const closeTab = (e, tabId) => {
-    e.stopPropagation();
-    if (tabs.length === 1) return; // Don't close the last tab
-    
-    const newTabs = tabs.filter(t => t.id !== tabId);
-    setTabs(newTabs);
-
-    if (activeTabId === tabId) {
-      const activeIndex = tabs.findIndex(t => t.id === tabId);
-      const nextActiveTab = newTabs[activeIndex - 1] || newTabs[0];
-      setActiveTabId(nextActiveTab.id);
-      navigate(nextActiveTab.path);
-    }
   };
 
   const handleLogout = () => {
@@ -144,7 +105,7 @@ export default function ERPLayout() {
         <nav className="sidebar-menu">
           <div 
             className={`menu-item ${location.pathname === '/dashboard' ? 'active' : ''}`}
-            onClick={() => addTab('Dashboard', '/dashboard')}
+            onClick={() => navigate('/dashboard')}
           >
             <div className="menu-item-left">
               <LayoutDashboard className="menu-item-icon" size={18} />
@@ -164,22 +125,22 @@ export default function ERPLayout() {
             {!isCollapsed && expandedMenus.accounting && (
               <div className="menu-submenu">
                 <div 
-                  className={`submenu-item ${activeTabId === 'general-ledger' ? 'active' : ''}`}
-                  onClick={() => addTab('General Ledger', '/ledger')}
+                  className={`submenu-item ${location.pathname === '/ledger' ? 'active' : ''}`}
+                  onClick={() => navigate('/ledger')}
                   style={{ cursor: 'pointer' }}
                 >
                   General Ledger
                 </div>
                 <div 
-                  className={`submenu-item ${activeTabId === 'journal-entries' ? 'active' : ''}`}
-                  onClick={() => addTab('Journal Entries', '/journal')}
+                  className={`submenu-item ${location.pathname === '/journal' ? 'active' : ''}`}
+                  onClick={() => navigate('/journal')}
                   style={{ cursor: 'pointer' }}
                 >
                   Journal Entries
                 </div>
                 <div 
-                  className={`submenu-item ${activeTabId === 'taxation-settings' ? 'active' : ''}`}
-                  onClick={() => addTab('Taxation Settings', '/taxation')}
+                  className={`submenu-item ${location.pathname === '/taxation' ? 'active' : ''}`}
+                  onClick={() => navigate('/taxation')}
                   style={{ cursor: 'pointer' }}
                 >
                   GST & Taxation
@@ -200,29 +161,29 @@ export default function ERPLayout() {
             {!isCollapsed && expandedMenus.basicInfo && (
               <div className="menu-submenu">
                 <div 
-                  className={`submenu-item ${activeTabId === 'product-catalog' ? 'active' : ''}`}
-                  onClick={() => addTab('Product Catalog', '/products')}
+                  className={`submenu-item ${location.pathname === '/products' ? 'active' : ''}`}
+                  onClick={() => navigate('/products')}
                   style={{ cursor: 'pointer' }}
                 >
                   Product Catalog
                 </div>
                 <div 
-                  className={`submenu-item ${activeTabId === 'customer-ledger' ? 'active' : ''}`}
-                  onClick={() => addTab('Customer Ledger', '/customers')}
+                  className={`submenu-item ${location.pathname === '/customers' ? 'active' : ''}`}
+                  onClick={() => navigate('/customers')}
                   style={{ cursor: 'pointer' }}
                 >
                   Customers Ledger
                 </div>
                 <div 
-                  className={`submenu-item ${activeTabId === 'supplier-database' ? 'active' : ''}`}
-                  onClick={() => addTab('Supplier Database', '/suppliers')}
+                  className={`submenu-item ${location.pathname === '/suppliers' ? 'active' : ''}`}
+                  onClick={() => navigate('/suppliers')}
                   style={{ cursor: 'pointer' }}
                 >
                   Suppliers Database
                 </div>
                 <div 
-                  className={`submenu-item ${activeTabId === 'users-access' ? 'active' : ''}`}
-                  onClick={() => addTab('Users & Access', '/users')}
+                  className={`submenu-item ${location.pathname === '/users' ? 'active' : ''}`}
+                  onClick={() => navigate('/users')}
                   style={{ cursor: 'pointer' }}
                 >
                   Users & Access
@@ -243,29 +204,29 @@ export default function ERPLayout() {
             {!isCollapsed && expandedMenus.stocks && (
               <div className="menu-submenu">
                 <div 
-                  className={`submenu-item ${activeTabId === 'inventory' ? 'active' : ''}`}
-                  onClick={() => addTab('Inventory', '/inventory')}
+                  className={`submenu-item ${location.pathname === '/inventory' ? 'active' : ''}`}
+                  onClick={() => navigate('/inventory')}
                   style={{ cursor: 'pointer' }}
                 >
                   Inventory Items
                 </div>
                 <div 
-                  className={`submenu-item ${activeTabId === 'stock-transfers' ? 'active' : ''}`}
-                  onClick={() => addTab('Stock Transfers', '/stock-transfer')}
+                  className={`submenu-item ${location.pathname === '/stock-transfer' ? 'active' : ''}`}
+                  onClick={() => navigate('/stock-transfer')}
                   style={{ cursor: 'pointer' }}
                 >
                   Stock Transfers
                 </div>
                 <div 
-                  className={`submenu-item ${activeTabId === 'warehouses' ? 'active' : ''}`}
-                  onClick={() => addTab('Warehouses', '/warehouses')}
+                  className={`submenu-item ${location.pathname === '/warehouses' ? 'active' : ''}`}
+                  onClick={() => navigate('/warehouses')}
                   style={{ cursor: 'pointer' }}
                 >
                   Warehouses
                 </div>
                 <div 
-                  className={`submenu-item ${activeTabId === 'barcode-labels' ? 'active' : ''}`}
-                  onClick={() => addTab('Barcode Labels', '/barcodes')}
+                  className={`submenu-item ${location.pathname === '/barcodes' ? 'active' : ''}`}
+                  onClick={() => navigate('/barcodes')}
                   style={{ cursor: 'pointer' }}
                 >
                   Barcode Labels
@@ -286,22 +247,22 @@ export default function ERPLayout() {
             {!isCollapsed && expandedMenus.sales && (
               <div className="menu-submenu">
                 <div 
-                  className={`submenu-item ${activeTabId === 'pos-billing' ? 'active' : ''}`}
-                  onClick={() => addTab('POS Billing', '/pos')}
+                  className={`submenu-item ${location.pathname === '/pos' ? 'active' : ''}`}
+                  onClick={() => navigate('/pos')}
                   style={{ cursor: 'pointer' }}
                 >
                   POS Billing Terminal
                 </div>
                 <div 
-                  className={`submenu-item ${activeTabId === 'sales-audit-logs' ? 'active' : ''}`}
-                  onClick={() => addTab('Sales Audit Logs', '/sales')}
+                  className={`submenu-item ${location.pathname === '/sales' ? 'active' : ''}`}
+                  onClick={() => navigate('/sales')}
                   style={{ cursor: 'pointer' }}
                 >
                   Sales Invoices
                 </div>
                 <div 
-                  className={`submenu-item ${activeTabId === 'purchase-orders' ? 'active' : ''}`}
-                  onClick={() => addTab('Purchase Orders', '/purchases')}
+                  className={`submenu-item ${location.pathname === '/purchases' ? 'active' : ''}`}
+                  onClick={() => navigate('/purchases')}
                   style={{ cursor: 'pointer' }}
                 >
                   Purchase Orders
@@ -312,8 +273,8 @@ export default function ERPLayout() {
 
           {/* Standalone navigation links */}
           <div 
-            className={`menu-item ${activeTabId === 'employees' ? 'active' : ''}`}
-            onClick={() => addTab('Employees', '/employees')}
+            className={`menu-item ${location.pathname === '/employees' ? 'active' : ''}`}
+            onClick={() => navigate('/employees')}
           >
             <div className="menu-item-left">
               <ShieldCheck className="menu-item-icon" size={18} />
@@ -322,8 +283,8 @@ export default function ERPLayout() {
           </div>
 
           <div 
-            className={`menu-item ${activeTabId === 'reports-analytics' ? 'active' : ''}`}
-            onClick={() => addTab('Reports & Analytics', '/reports')}
+            className={`menu-item ${location.pathname === '/reports' ? 'active' : ''}`}
+            onClick={() => navigate('/reports')}
           >
             <div className="menu-item-left">
               <ArrowLeftRight className="menu-item-icon" size={18} />
@@ -332,8 +293,8 @@ export default function ERPLayout() {
           </div>
 
           <div 
-            className={`menu-item ${activeTabId === 'notifications-limits' ? 'active' : ''}`}
-            onClick={() => addTab('Notifications Limits', '/notifications')}
+            className={`menu-item ${location.pathname === '/notifications' ? 'active' : ''}`}
+            onClick={() => navigate('/notifications')}
           >
             <div className="menu-item-left">
               <Bell className="menu-item-icon" size={18} />
@@ -342,8 +303,8 @@ export default function ERPLayout() {
           </div>
 
           <div 
-            className={`menu-item ${activeTabId === 'branches-directory' ? 'active' : ''}`}
-            onClick={() => addTab('Branches Directory', '/branches')}
+            className={`menu-item ${location.pathname === '/branches' ? 'active' : ''}`}
+            onClick={() => navigate('/branches')}
           >
             <div className="menu-item-left">
               <RefreshCw className="menu-item-icon" size={18} />
@@ -352,8 +313,8 @@ export default function ERPLayout() {
           </div>
 
           <div 
-            className={`menu-item ${activeTabId === 'settings-profile' ? 'active' : ''}`}
-            onClick={() => addTab('Settings Profile', '/settings')}
+            className={`menu-item ${location.pathname === '/settings' ? 'active' : ''}`}
+            onClick={() => navigate('/settings')}
           >
             <div className="menu-item-left">
               <Settings className="menu-item-icon" size={18} />
@@ -372,27 +333,6 @@ export default function ERPLayout() {
               <option value="2026 Period">2026 Period</option>
               <option value="2025 Period">2025 Period</option>
             </select>
-
-            {/* Navigation Tab list */}
-            <div className="header-tabs">
-              {tabs.map(tab => (
-                <div 
-                  key={tab.id} 
-                  className={`header-tab ${activeTabId === tab.id ? 'active' : ''}`}
-                  onClick={() => handleTabClick(tab)}
-                >
-                  <span>{tab.name}</span>
-                  {tabs.length > 1 && (
-                    <button className="tab-close-btn" onClick={(e) => closeTab(e, tab.id)}>
-                      <X size={12} />
-                    </button>
-                  )}
-                </div>
-              ))}
-              <button className="add-tab-btn" onClick={() => addTab('New Tool', '/dashboard')}>
-                <Plus size={14} />
-              </button>
-            </div>
           </div>
 
           {/* Right Header Controls */}
@@ -426,54 +366,112 @@ export default function ERPLayout() {
               {showProfileMenu && (
                 <div style={{
                   position: 'absolute',
-                  top: '40px',
+                  top: '48px',
                   right: '0',
-                  backgroundColor: '#ffffff',
+                  backgroundColor: 'rgba(255, 255, 255, 0.98)',
+                  backdropFilter: 'blur(12px)',
                   border: '1px solid #e5e7eb',
-                  borderRadius: '12px',
-                  boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)',
+                  borderRadius: '16px',
+                  boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
                   padding: '16px',
-                  width: '220px',
-                  zIndex: 999,
+                  width: '240px',
+                  zIndex: 9999,
                   textAlign: 'left'
                 }} onClick={(e) => e.stopPropagation()}>
-                  <div style={{ marginBottom: '12px', borderBottom: '1px solid #f3f4f6', paddingBottom: '8px' }}>
-                    <div style={{ fontWeight: 700, color: '#1f2937', fontSize: '14px' }}>{user.name}</div>
-                    <div style={{ color: '#6b7280', fontSize: '11px' }}>{user.email}</div>
-                    <div style={{
-                      display: 'inline-block',
-                      backgroundColor: '#eff6ff',
-                      color: '#1d4ed8',
-                      fontSize: '10px',
-                      fontWeight: 700,
-                      padding: '2px 6px',
-                      borderRadius: '4px',
-                      marginTop: '6px'
-                    }}>{user.role}</div>
+                  
+                  {/* Premium Profile Info Header */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', paddingBottom: '12px', borderBottom: '1px solid #f3f4f6', marginBottom: '8px' }}>
+                    <img 
+                      src={user.avatar} 
+                      alt={user.name} 
+                      style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #7c3aed' }} 
+                    />
+                    <div>
+                      <div style={{ fontWeight: 700, color: '#1f2937', fontSize: '13.5px', lineHeight: '1.2' }}>{user.name}</div>
+                      <div style={{ color: '#6b7280', fontSize: '11px', marginTop: '2px', wordBreak: 'break-all' }}>{user.email}</div>
+                      <div style={{
+                        display: 'inline-block',
+                        backgroundColor: '#eff6ff',
+                        color: '#1d4ed8',
+                        fontSize: '9px',
+                        fontWeight: 700,
+                        padding: '1px 6px',
+                        borderRadius: '4px',
+                        marginTop: '4px'
+                      }}>{user.role}</div>
+                    </div>
                   </div>
-                  <button 
-                    onClick={handleLogout}
-                    style={{
-                      width: '100%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      padding: '8px 10px',
-                      border: 'none',
-                      backgroundColor: 'transparent',
-                      color: '#ef4444',
-                      fontSize: '13px',
-                      fontWeight: 600,
-                      cursor: 'pointer',
-                      borderRadius: '6px',
-                      transition: 'background-color 0.2s'
-                    }}
-                    onMouseEnter={(e) => e.target.style.backgroundColor = '#fef2f2'}
-                    onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
-                  >
-                    <LogOut size={16} />
-                    <span>Sign Out</span>
-                  </button>
+
+                  {/* Actions Links */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                    <div 
+                      onClick={() => { alert('Navigating to user profile setup...'); }}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '10px',
+                        padding: '8px 10px',
+                        borderRadius: '8px',
+                        fontSize: '13px',
+                        color: '#4b5563',
+                        cursor: 'pointer',
+                        fontWeight: 500,
+                        transition: 'all 0.2s'
+                      }}
+                      onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#f9fafb'; e.currentTarget.style.color = '#1f2937'; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = '#4b5563'; }}
+                    >
+                      <User size={15} style={{ color: '#9ca3af' }} />
+                      <span>My Account</span>
+                    </div>
+
+                    <div 
+                      onClick={() => { setShowProfileMenu(false); navigate('/settings'); }}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '10px',
+                        padding: '8px 10px',
+                        borderRadius: '8px',
+                        fontSize: '13px',
+                        color: '#4b5563',
+                        cursor: 'pointer',
+                        fontWeight: 500,
+                        transition: 'all 0.2s'
+                      }}
+                      onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#f9fafb'; e.currentTarget.style.color = '#1f2937'; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = '#4b5563'; }}
+                    >
+                      <Settings size={15} style={{ color: '#9ca3af' }} />
+                      <span>Account Settings</span>
+                    </div>
+
+                    <div style={{ borderTop: '1px solid #f3f4f6', margin: '6px 0' }} />
+
+                    <button 
+                      onClick={handleLogout}
+                      style={{
+                        width: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '10px',
+                        padding: '8px 10px',
+                        border: 'none',
+                        backgroundColor: 'transparent',
+                        color: '#ef4444',
+                        fontSize: '13px',
+                        fontWeight: 600,
+                        cursor: 'pointer',
+                        borderRadius: '8px',
+                        transition: 'all 0.2s'
+                      }}
+                      onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#fef2f2'; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; }}
+                    >
+                      <LogOut size={15} />
+                      <span>Sign Out</span>
+                    </button>
+                  </div>
                 </div>
               )}
             </div>

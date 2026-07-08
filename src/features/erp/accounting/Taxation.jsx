@@ -27,15 +27,15 @@ export default function Taxation() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '13px' }}>
             <div style={{ display: 'flex', justify: 'space-between', borderBottom: '1px solid #e5e7eb', paddingBottom: '8px' }}>
               <span style={{ color: '#6b7280' }}>Input Tax Credit (ITC)</span>
-              <span style={{ fontWeight: 700, color: '#10b981' }}>+$3,374.00</span>
+              <span style={{ fontWeight: 700, color: '#10b981' }}>+₹3,374.00</span>
             </div>
             <div style={{ display: 'flex', justify: 'space-between', borderBottom: '1px solid #e5e7eb', paddingBottom: '8px' }}>
               <span style={{ color: '#6b7280' }}>Output Tax Liability</span>
-              <span style={{ fontWeight: 700, color: '#ef4444' }}>-$8,141.00</span>
+              <span style={{ fontWeight: 700, color: '#ef4444' }}>-₹8,141.00</span>
             </div>
             <div style={{ display: 'flex', justify: 'space-between', fontWeight: 'bold', fontSize: '14px' }}>
               <span>Net Tax Payable</span>
-              <span style={{ color: '#7c3aed' }}>$4,767.00</span>
+              <span style={{ color: '#7c3aed' }}>₹4,767.00</span>
             </div>
           </div>
         </div>

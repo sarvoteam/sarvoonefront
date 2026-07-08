@@ -113,8 +113,8 @@ export default function JournalEntries() {
               <th style={{ width: '100px' }}>Date</th>
               <th style={{ width: '100px' }}>Reference</th>
               <th>Narration / Account Entries</th>
-              <th style={{ textRight: 'right', width: '120px', textAlign: 'right' }}>Debit ($)</th>
-              <th style={{ textRight: 'right', width: '120px', textAlign: 'right' }}>Credit ($)</th>
+              <th style={{ textRight: 'right', width: '120px', textAlign: 'right' }}>Debit (₹)</th>
+              <th style={{ textRight: 'right', width: '120px', textAlign: 'right' }}>Credit (₹)</th>
             </tr>
           </thead>
           <tbody>
@@ -136,10 +136,10 @@ export default function JournalEntries() {
                         <span>{line.account}</span>
                         <div style={{ display: 'flex', gap: '30px' }}>
                           <span style={{ width: '80px', textAlign: 'right' }}>
-                            {line.debit > 0 ? `$${line.debit.toFixed(2)}` : ''}
+                            {line.debit > 0 ? `₹${line.debit.toFixed(2)}` : ''}
                           </span>
                           <span style={{ width: '80px', textAlign: 'right' }}>
-                            {line.credit > 0 ? `$${line.credit.toFixed(2)}` : ''}
+                            {line.credit > 0 ? `₹${line.credit.toFixed(2)}` : ''}
                           </span>
                         </div>
                       </div>
@@ -222,7 +222,7 @@ export default function JournalEntries() {
                       </select>
                       <input 
                         type="number" 
-                        placeholder="Debit ($)" 
+                        placeholder="Debit (₹)" 
                         value={line.debit || ''} 
                         onChange={(e) => handleLineChange(idx, 'debit', e.target.value)}
                         style={{ padding: '10px', border: '1px solid #d1d5db', borderRadius: '8px', width: '100%', boxSizing: 'border-box' }}
@@ -230,7 +230,7 @@ export default function JournalEntries() {
                       />
                       <input 
                         type="number" 
-                        placeholder="Credit ($)" 
+                        placeholder="Credit (₹)" 
                         value={line.credit || ''} 
                         onChange={(e) => handleLineChange(idx, 'credit', e.target.value)}
                         style={{ padding: '10px', border: '1px solid #d1d5db', borderRadius: '8px', width: '100%', boxSizing: 'border-box' }}
@@ -259,8 +259,8 @@ export default function JournalEntries() {
                   <span>{isBalanced ? 'Balanced: Ready to Post' : 'Unbalanced: Debits must equal Credits (and be greater than 0)'}</span>
                 </div>
                 <div style={{ display: 'flex', gap: '16px' }}>
-                  <span>Debit: ${totalDebit.toFixed(2)}</span>
-                  <span>Credit: ${totalCredit.toFixed(2)}</span>
+                  <span>Debit: ₹{totalDebit.toFixed(2)}</span>
+                  <span>Credit: ₹{totalCredit.toFixed(2)}</span>
                 </div>
               </div>
 

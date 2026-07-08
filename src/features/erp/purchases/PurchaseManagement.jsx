@@ -57,7 +57,7 @@ export default function PurchaseManagement() {
                 <td style={{ padding: '12px', fontWeight: 600 }}>{p.supplier}</td>
                 <td style={{ padding: '12px' }}>{p.date}</td>
                 <td style={{ padding: '12px' }}>{p.items} products</td>
-                <td style={{ padding: '12px', fontWeight: 700 }}>${p.amount.toFixed(2)}</td>
+                <td style={{ padding: '12px', fontWeight: 700 }}>₹{p.amount.toFixed(2)}</td>
                 <td style={{ padding: '12px' }}>
                   <span style={{ 
                     padding: '4px 8px', 

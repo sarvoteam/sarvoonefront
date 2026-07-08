@@ -5,10 +5,7 @@ import {
   X, 
   Edit, 
   Trash2, 
-  ChevronRight, 
-  FileText,
   AlertCircle,
-  TrendingUp,
   Barcode
 } from 'lucide-react';
 import StockStatusBadge from '../components/StockStatusBadge';
@@ -16,16 +13,15 @@ import InventoryForm from '../components/InventoryForm';
 import './InventoryList.css';
 
 const initialProducts = [
-  { id: 1, name: 'Paracetamol 500mg', sku: 'MED-PC-500', category: 'Medical', stock: 120, reorderLevel: 20, unit: 'box', purchasePrice: 4.00, sellingPrice: 5.50, description: 'Standard painkiller and fever reducer tablets.' },
-  { id: 2, name: 'Amoxicillin 250mg', sku: 'MED-AMX-250', category: 'Medical', stock: 5, reorderLevel: 15, unit: 'bottle', purchasePrice: 7.50, sellingPrice: 9.80, description: 'Antibiotic syrup for bacterial infections.' },
-  { id: 3, name: 'Wireless Optical Mouse', sku: 'ELE-WM-04', category: 'Electronics', stock: 45, reorderLevel: 10, unit: 'piece', purchasePrice: 12.00, sellingPrice: 19.99, description: '2.4Ghz ergonomic wireless mouse.' },
-  { id: 4, name: 'LED Bulb 9W Premium', sku: 'HDW-LED-9W', category: 'Hardware', stock: 0, reorderLevel: 15, unit: 'piece', purchasePrice: 1.20, sellingPrice: 2.50, description: 'Energy saving bright daylight LED light.' },
-  { id: 5, name: 'Organic Green Tea Bag', sku: 'SMK-GT-50', category: 'Supermarket', stock: 85, reorderLevel: 25, unit: 'pack', purchasePrice: 3.10, sellingPrice: 4.99, description: 'Natural green tea pack containing 50 bags.' }
+  { id: 1, name: 'Paracetamol 500mg', sku: 'MED-PC-500', category: 'Medical', stock: 120, reorderLevel: 20, unit: 'box', purchasePrice: 24, sellingPrice: 30, batchNumber: 'BAT-10029', expiryDate: '2027-10-15', damagedStock: 0, warehouseStock: 'Central Warehouse' },
+  { id: 2, name: 'Amoxicillin 250mg', sku: 'MED-AMX-250', category: 'Medical', stock: 5, reorderLevel: 15, unit: 'bottle', purchasePrice: 70, sellingPrice: 85, batchNumber: 'BAT-99301', expiryDate: '2026-09-02', damagedStock: 2, warehouseStock: 'Central Warehouse' },
+  { id: 3, name: 'Wireless Optical Mouse', sku: 'ELE-WM-04', category: 'Electronics', stock: 45, reorderLevel: 10, unit: 'piece', purchasePrice: 650, sellingPrice: 850, batchNumber: 'BAT-ELE-04', expiryDate: '', damagedStock: 0, warehouseStock: 'City Retail Depot' },
+  { id: 4, name: 'LED Bulb 9W Premium', sku: 'HDW-LED-9W', category: 'Hardware', stock: 0, reorderLevel: 15, unit: 'piece', purchasePrice: 90, sellingPrice: 120, batchNumber: 'BAT-HDW-9W', expiryDate: '', damagedStock: 0, warehouseStock: 'City Retail Depot' }
 ];
 
 export default function InventoryList() {
   const [products, setProducts] = useState(initialProducts);
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(initialProducts[0]);
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('All');
   
@@ -70,7 +66,7 @@ export default function InventoryList() {
       const filtered = products.filter(p => p.id !== productId);
       setProducts(filtered);
       if (selectedProduct?.id === productId) {
-        setSelectedProduct(null);
+        setSelectedProduct(filtered[0] || null);
       }
     }
   };
@@ -99,50 +95,48 @@ export default function InventoryList() {
   });
 
   return (
-    <div className="inventory-container">
+    <div className="inventory-container" style={{ display: 'grid', gridTemplateColumns: '3fr 2fr', gap: '20px' }}>
+      
       {/* Table Main Panel */}
-      <div className="inventory-main-content">
-        <div className="inventory-actions-bar">
-          <div className="actions-left">
-            <div className="search-input-wrapper">
-              <Search className="search-icon" size={16} />
+      <div style={{ backgroundColor: '#fff', borderRadius: '12px', border: '1px solid #e5e7eb', padding: '20px' }}>
+        <div className="inventory-actions-bar" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px' }}>
+          <div className="actions-left" style={{ display: 'flex', gap: '10px' }}>
+            <div className="search-input-wrapper" style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+              <Search style={{ position: 'absolute', left: '10px', color: '#9ca3af' }} size={16} />
               <input 
                 type="text" 
                 placeholder="Search SKU or Name..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                style={{ padding: '6px 12px 6px 32px', border: '1px solid #e5e7eb', borderRadius: '8px', fontSize: '13px' }}
               />
             </div>
             <select 
-              className="filter-select"
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
+              style={{ padding: '6px 12px', border: '1px solid #e5e7eb', borderRadius: '8px', fontSize: '13px', backgroundColor: '#fff' }}
             >
               <option value="All">All Categories</option>
               <option value="Medical">Medical</option>
               <option value="Electronics">Electronics</option>
               <option value="Hardware">Hardware</option>
-              <option value="Supermarket">Supermarket</option>
             </select>
           </div>
           
-          <button className="btn-primary" onClick={openAddModal}>
-            <Plus size={16} />
-            <span>Add Stock Item</span>
+          <button className="btn-primary" onClick={openAddModal} style={{ padding: '6px 12px', borderRadius: '8px', fontSize: '12px', cursor: 'pointer' }}>
+            <Plus size={14} /> Add Stock Item
           </button>
         </div>
 
         {/* Data Table */}
         <div className="inventory-table-wrapper">
-          <table className="inventory-table">
+          <table className="inventory-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
             <thead>
-              <tr>
-                <th>Product</th>
+              <tr style={{ borderBottom: '2px solid #f3f4f6' }}>
+                <th style={{ padding: '10px' }}>Product</th>
                 <th>SKU</th>
-                <th>Category</th>
                 <th>Stock Quantity</th>
                 <th>Status</th>
-                <th>Selling Price</th>
                 <th style={{ textAlign: 'right' }}>Actions</th>
               </tr>
             </thead>
@@ -151,54 +145,27 @@ export default function InventoryList() {
                 <tr 
                   key={p.id} 
                   onClick={() => handleRowClick(p)}
-                  className={selectedProduct?.id === p.id ? 'selected' : ''}
+                  style={{ borderBottom: '1px solid #f3f4f6', cursor: 'pointer', backgroundColor: selectedProduct?.id === p.id ? '#f9fafb' : 'transparent' }}
                 >
-                  <td>
-                    <div className="product-cell">
-                      <div className="product-avatar">
-                        {p.name.charAt(0)}
-                      </div>
-                      <div>
-                        <div className="product-name-txt">{p.name}</div>
-                        <div className="product-unit-txt">per {p.unit}</div>
-                      </div>
-                    </div>
+                  <td style={{ padding: '10px' }}>
+                    <div style={{ fontWeight: 600, color: '#1f2937' }}>{p.name}</div>
+                    <span style={{ fontSize: '11px', color: '#9ca3af' }}>Category: {p.category}</span>
                   </td>
                   <td>{p.sku}</td>
-                  <td>{p.category}</td>
-                  <td style={{ fontWeight: 700 }}>{p.stock} {p.unit}s</td>
+                  <td style={{ fontWeight: 700, color: p.stock < p.reorderLevel ? '#ef4444' : '#111827' }}>
+                    {p.stock} {p.unit}s
+                  </td>
                   <td>
                     <StockStatusBadge stock={p.stock} reorderLevel={p.reorderLevel} />
                   </td>
-                  <td style={{ fontWeight: 600 }}>${p.sellingPrice.toFixed(2)}</td>
-                  <td style={{ textAlign: 'right' }}>
+                  <td style={{ textAlign: 'right' }} onClick={(e) => e.stopPropagation()}>
                     <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
-                      <button 
-                        className="drawer-close-btn" 
-                        onClick={(e) => openEditModal(e, p)}
-                        title="Edit Item"
-                      >
-                        <Edit size={14} />
-                      </button>
-                      <button 
-                        className="drawer-close-btn" 
-                        onClick={(e) => handleDelete(e, p.id)}
-                        style={{ color: '#ef4444' }}
-                        title="Delete Item"
-                      >
-                        <Trash2 size={14} />
-                      </button>
+                      <button onClick={(e) => openEditModal(e, p)} style={{ border: 'none', background: 'none', cursor: 'pointer', color: '#6b7280' }}><Edit size={14} /></button>
+                      <button onClick={(e) => handleDelete(e, p.id)} style={{ border: 'none', background: 'none', cursor: 'pointer', color: '#ef4444' }}><Trash2 size={14} /></button>
                     </div>
                   </td>
                 </tr>
               ))}
-              {filteredProducts.length === 0 && (
-                <tr>
-                  <td colSpan="7" style={{ textAlign: 'center', padding: '24px', color: '#6b7280' }}>
-                    No stock products found.
-                  </td>
-                </tr>
-              )}
             </tbody>
           </table>
         </div>
@@ -206,94 +173,82 @@ export default function InventoryList() {
 
       {/* Selected Item Drawer Panel */}
       {selectedProduct && (
-        <div className="inventory-detail-drawer">
-          <div className="drawer-header">
-            <h3 className="drawer-title">Product Details</h3>
-            <button className="drawer-close-btn" onClick={() => setSelectedProduct(null)}>
-              <X size={16} />
-            </button>
+        <div style={{ backgroundColor: '#fff', borderRadius: '12px', border: '1px solid #e5e7eb', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div>
+            <h3 style={{ margin: 0, fontSize: '15px', fontWeight: 700, color: '#1f2937' }}>{selectedProduct.name}</h3>
+            <span style={{ fontSize: '12px', color: '#6b7280' }}>SKU: {selectedProduct.sku}</span>
           </div>
 
-          <div className="drawer-profile-card">
-            <div className="drawer-avatar">
-              {selectedProduct.name.charAt(0)}
-            </div>
-            <h4 className="drawer-product-title">{selectedProduct.name}</h4>
-            <span className="drawer-product-sku">{selectedProduct.sku}</span>
-          </div>
-
-          {/* Quick Stock Adjustments */}
-          <div style={{ marginBottom: '24px' }}>
-            <div className="detail-section-title">Stock Adjustments</div>
-            <div className="drawer-quick-actions">
-              <button className="btn-secondary" onClick={() => adjustStock(selectedProduct.id, 10)}>
-                <Plus size={14} style={{ color: '#10b981' }} />
-                <span>Add 10</span>
+          {/* Quick Adjustments */}
+          <div>
+            <div style={{ fontSize: '11px', color: '#6b7280', fontWeight: 700, marginBottom: '6px' }}>Stock Actions</div>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button className="btn-secondary" onClick={() => adjustStock(selectedProduct.id, 10)} style={{ flex: 1, padding: '6px', fontSize: '11px', fontWeight: 700 }}>
+                Stock In (+10)
               </button>
-              <button className="btn-secondary" onClick={() => adjustStock(selectedProduct.id, -10)}>
-                <span>Deduct 10</span>
+              <button className="btn-secondary" onClick={() => adjustStock(selectedProduct.id, -10)} style={{ flex: 1, padding: '6px', fontSize: '11px', fontWeight: 700 }}>
+                Stock Out (-10)
               </button>
             </div>
           </div>
 
-          {/* Detailed Info */}
+          {/* Specifications */}
           <div>
-            <div className="detail-section-title">Financials & Logistics</div>
-            <div className="detail-info-grid">
-              <div className="detail-info-row">
-                <span className="info-label">Category</span>
-                <span className="info-value">{selectedProduct.category}</span>
+            <div style={{ fontSize: '11px', color: '#6b7280', fontWeight: 700, marginBottom: '8px' }}>Logistics Parameters</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12.5px', color: '#4b5563' }}>
+              <div style={{ display: 'flex', justify: 'space-between', borderBottom: '1px solid #f3f4f6', paddingBottom: '4px' }}>
+                <span>Batch Number:</span>
+                <strong style={{ fontFamily: 'monospace' }}>{selectedProduct.batchNumber || 'N/A'}</strong>
               </div>
-              <div className="detail-info-row">
-                <span className="info-label">Current Stock</span>
-                <span className="info-value" style={{ color: '#7c3aed', fontWeight: 800 }}>
-                  {selectedProduct.stock} {selectedProduct.unit}s
-                </span>
+              <div style={{ display: 'flex', justify: 'space-between', borderBottom: '1px solid #f3f4f6', paddingBottom: '4px' }}>
+                <span>Expiry Date:</span>
+                <strong style={{ color: '#be185d' }}>{selectedProduct.expiryDate || 'N/A'}</strong>
               </div>
-              <div className="detail-info-row">
-                <span className="info-label">Reorder Warning</span>
-                <span className="info-value">{selectedProduct.reorderLevel} {selectedProduct.unit}s</span>
+              <div style={{ display: 'flex', justify: 'space-between', borderBottom: '1px solid #f3f4f6', paddingBottom: '4px' }}>
+                <span>Damaged Stock:</span>
+                <strong style={{ color: selectedProduct.damagedStock > 0 ? '#ef4444' : '#10b981' }}>{selectedProduct.damagedStock} units</strong>
               </div>
-              <div className="detail-info-row">
-                <span className="info-label">Purchase Price</span>
-                <span className="info-value">${selectedProduct.purchasePrice.toFixed(2)}</span>
+              <div style={{ display: 'flex', justify: 'space-between', borderBottom: '1px solid #f3f4f6', paddingBottom: '4px' }}>
+                <span>Warehouse Location:</span>
+                <strong>{selectedProduct.warehouseStock}</strong>
               </div>
-              <div className="detail-info-row">
-                <span className="info-label">Selling Price</span>
-                <span className="info-value">${selectedProduct.sellingPrice.toFixed(2)}</span>
+              <div style={{ display: 'flex', justify: 'space-between', borderBottom: '1px solid #f3f4f6', paddingBottom: '4px' }}>
+                <span>Minimum stock warning limit:</span>
+                <strong>{selectedProduct.reorderLevel} units</strong>
               </div>
             </div>
           </div>
 
-          {/* Barcode & Identifiers */}
-          <div>
-            <div className="detail-section-title">Barcode Generation</div>
-            <div className="barcode-preview-box">
-              <div className="barcode-lines">
-                <div className="barcode-line" style={{ width: '4px' }}></div>
-                <div className="barcode-line" style={{ width: '2px' }}></div>
-                <div className="barcode-line" style={{ width: '6px' }}></div>
-                <div className="barcode-line" style={{ width: '1px' }}></div>
-                <div className="barcode-line" style={{ width: '3px' }}></div>
-                <div className="barcode-line" style={{ width: '1px' }}></div>
-                <div className="barcode-line" style={{ width: '5px' }}></div>
-                <div className="barcode-line" style={{ width: '2px' }}></div>
+          {/* Low Stock Warning simulation preview */}
+          {selectedProduct.stock <= selectedProduct.reorderLevel && (
+            <div style={{ display: 'flex', gap: '8px', backgroundColor: '#fee2e2', border: '1px solid #fca5a5', padding: '12px', borderRadius: '8px', color: '#991b1b', fontSize: '12px' }}>
+              <AlertCircle size={16} style={{ flexShrink: 0 }} />
+              <div>
+                <strong>Low Stock Alert Triggered!</strong>
+                <div style={{ marginTop: '2px' }}>Current stock ({selectedProduct.stock}) has fallen below minimum limit ({selectedProduct.reorderLevel}).</div>
               </div>
-              <div style={{ fontSize: '11px', fontFamily: 'monospace', fontWeight: 600, color: '#374151' }}>
-                {selectedProduct.sku}
-              </div>
+            </div>
+          )}
+
+          {/* Barcode display */}
+          <div style={{ borderTop: '1px solid #f3f4f6', paddingTop: '12px' }}>
+            <span style={{ fontSize: '11px', color: '#9ca3af', fontWeight: 600 }}>Active Barcode lookup</span>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', marginTop: '8px' }}>
+              <Barcode size={32} style={{ color: '#1f2937' }} />
+              <span style={{ fontSize: '11.5px', fontFamily: 'monospace', fontWeight: 700 }}>{selectedProduct.sku}</span>
             </div>
           </div>
         </div>
       )}
 
-      {/* Add/Edit Modal */}
+      {/* Add/Edit Modal Form */}
       <InventoryForm 
         isOpen={isFormOpen}
         onClose={() => setIsFormOpen(false)}
         onSubmit={handleFormSubmit}
         initialData={editingProduct}
       />
+
     </div>
   );
 }

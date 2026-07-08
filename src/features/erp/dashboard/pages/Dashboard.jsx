@@ -8,7 +8,11 @@ import {
   Wallet, 
   AlertTriangle, 
   PackageMinus,
-  CalendarCheck
+  CalendarCheck,
+  Users,
+  Briefcase,
+  Layers,
+  ArrowRightLeft
 } from 'lucide-react';
 import { 
   ResponsiveContainer, 
@@ -36,106 +40,129 @@ const salesData = [
 
 export default function Dashboard() {
   return (
-    <div className="dashboard-page">
-      {/* KPI Cards Grid */}
-      <section className="kpi-grid">
-        {/* Sales Card */}
-        <div className="kpi-card">
-          <div className="kpi-header">
-            <span className="kpi-title">Total Sales</span>
-            <div className="kpi-icon-wrapper bg-purple">
-              <DollarSign size={20} />
-            </div>
+    <div className="dashboard-page" style={{ padding: '20px', fontFamily: 'system-ui, sans-serif' }}>
+      
+      {/* 10 KPI Cards Grid as requested */}
+      <h2 style={{ fontSize: '18px', fontWeight: 700, margin: '0 0 16px', color: '#1f2937' }}>Business Performance Overview</h2>
+      
+      <section className="kpi-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '16px', marginBottom: '24px' }}>
+        
+        {/* Today's Sales */}
+        <div className="kpi-card" style={{ padding: '16px', backgroundColor: '#fff', borderRadius: '12px', border: '1px solid #e5e7eb' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+            <span style={{ fontSize: '12px', color: '#6b7280', fontWeight: 600 }}>Today's Sales</span>
+            <div style={{ color: '#7c3aed', padding: '4px', borderRadius: '6px', backgroundColor: '#f3e8ff' }}><DollarSign size={16} /></div>
           </div>
-          <span className="kpi-value">$45,231.00</span>
-          <div className="kpi-footer trend-up">
-            <TrendingUp size={14} />
-            <span>+12.5% vs last month</span>
-          </div>
-        </div>
-
-        {/* Purchase Card */}
-        <div className="kpi-card">
-          <div className="kpi-header">
-            <span className="kpi-title">Purchases</span>
-            <div className="kpi-icon-wrapper bg-cyan">
-              <ShoppingCart size={20} />
-            </div>
-          </div>
-          <span className="kpi-value">$28,120.00</span>
-          <div className="kpi-footer trend-down">
-            <TrendingDown size={14} />
-            <span>-4.2% vs last month</span>
+          <div style={{ fontSize: '20px', fontWeight: 700, color: '#1f2937' }}>₹45,231.00</div>
+          <div style={{ fontSize: '11px', color: '#10b981', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '6px' }}>
+            <TrendingUp size={12} /> +12.5% vs yesterday
           </div>
         </div>
 
-        {/* Profit Card */}
-        <div className="kpi-card">
-          <div className="kpi-header">
-            <span className="kpi-title">Net Profit</span>
-            <div className="kpi-icon-wrapper bg-green">
-              <Percent size={20} />
-            </div>
+        {/* Today's Purchase */}
+        <div className="kpi-card" style={{ padding: '16px', backgroundColor: '#fff', borderRadius: '12px', border: '1px solid #e5e7eb' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+            <span style={{ fontSize: '12px', color: '#6b7280', fontWeight: 600 }}>Today's Purchase</span>
+            <div style={{ color: '#0891b2', padding: '4px', borderRadius: '6px', backgroundColor: '#ecfeff' }}><ShoppingCart size={16} /></div>
           </div>
-          <span className="kpi-value">$17,111.00</span>
-          <div className="kpi-footer trend-up">
-            <TrendingUp size={14} />
-            <span>+8.1% vs last month</span>
+          <div style={{ fontSize: '20px', fontWeight: 700, color: '#1f2937' }}>₹28,120.00</div>
+          <div style={{ fontSize: '11px', color: '#ef4444', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '6px' }}>
+            <TrendingDown size={12} /> -4.2% vs yesterday
           </div>
         </div>
 
-        {/* Expenses Card */}
-        <div className="kpi-card">
-          <div className="kpi-header">
-            <span className="kpi-title">Expenses</span>
-            <div className="kpi-icon-wrapper bg-red">
-              <Wallet size={20} />
-            </div>
+        {/* Profit */}
+        <div className="kpi-card" style={{ padding: '16px', backgroundColor: '#fff', borderRadius: '12px', border: '1px solid #e5e7eb' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+            <span style={{ fontSize: '12px', color: '#6b7280', fontWeight: 600 }}>Net Profit</span>
+            <div style={{ color: '#10b981', padding: '4px', borderRadius: '6px', backgroundColor: '#d1fae5' }}><Percent size={16} /></div>
           </div>
-          <span className="kpi-value">$6,340.00</span>
-          <div className="kpi-footer trend-up">
-            <TrendingUp size={14} />
-            <span>+1.5% vs last month</span>
+          <div style={{ fontSize: '20px', fontWeight: 700, color: '#1f2937' }}>₹17,111.00</div>
+          <div style={{ fontSize: '11px', color: '#10b981', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '6px' }}>
+            <TrendingUp size={12} /> +8.1% vs last month
           </div>
         </div>
 
-        {/* Low Stock Alert Card */}
-        <div className="kpi-card">
-          <div className="kpi-header">
-            <span className="kpi-title">Low Stock Alerts</span>
-            <div className="kpi-icon-wrapper bg-amber">
-              <PackageMinus size={20} />
-            </div>
+        {/* Expenses */}
+        <div className="kpi-card" style={{ padding: '16px', backgroundColor: '#fff', borderRadius: '12px', border: '1px solid #e5e7eb' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+            <span style={{ fontSize: '12px', color: '#6b7280', fontWeight: 600 }}>Expenses</span>
+            <div style={{ color: '#ef4444', padding: '4px', borderRadius: '6px', backgroundColor: '#fee2fee' }}><Wallet size={16} /></div>
           </div>
-          <span className="kpi-value">4 Items</span>
-          <div className="kpi-footer trend-neutral">
-            <span>Reorder thresholds met</span>
+          <div style={{ fontSize: '20px', fontWeight: 700, color: '#1f2937' }}>₹6,340.00</div>
+          <div style={{ fontSize: '11px', color: '#10b981', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '6px' }}>
+            <TrendingUp size={12} /> +1.5% vs last month
           </div>
         </div>
 
-        {/* Expiring Products Alert Card */}
-        <div className="kpi-card">
-          <div className="kpi-header">
-            <span className="kpi-title">Expiring Soon</span>
-            <div className="kpi-icon-wrapper bg-rose">
-              <CalendarCheck size={20} />
-            </div>
+        {/* Pending Payments */}
+        <div className="kpi-card" style={{ padding: '16px', backgroundColor: '#fff', borderRadius: '12px', border: '1px solid #e5e7eb' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+            <span style={{ fontSize: '12px', color: '#6b7280', fontWeight: 600 }}>Pending Payments</span>
+            <div style={{ color: '#d97706', padding: '4px', borderRadius: '6px', backgroundColor: '#fef3c7' }}><AlertTriangle size={16} /></div>
           </div>
-          <span className="kpi-value">2 Items</span>
-          <div className="kpi-footer trend-neutral">
-            <span>Expiring within 30 days</span>
-          </div>
+          <div style={{ fontSize: '20px', fontWeight: 700, color: '#1f2937' }}>₹4,340.00</div>
+          <div style={{ fontSize: '11px', color: '#b45309', marginTop: '6px' }}>To Suppliers</div>
         </div>
+
+        {/* Outstanding Receivables */}
+        <div className="kpi-card" style={{ padding: '16px', backgroundColor: '#fff', borderRadius: '12px', border: '1px solid #e5e7eb' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+            <span style={{ fontSize: '12px', color: '#6b7280', fontWeight: 600 }}>Outstanding Receivables</span>
+            <div style={{ color: '#4f46e5', padding: '4px', borderRadius: '6px', backgroundColor: '#e0e7ff' }}><ArrowRightLeft size={16} /></div>
+          </div>
+          <div style={{ fontSize: '20px', fontWeight: 700, color: '#1f2937' }}>₹9,650.00</div>
+          <div style={{ fontSize: '11px', color: '#4338ca', marginTop: '6px' }}>From Customers</div>
+        </div>
+
+        {/* Low Stock Products */}
+        <div className="kpi-card" style={{ padding: '16px', backgroundColor: '#fff', borderRadius: '12px', border: '1px solid #e5e7eb' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+            <span style={{ fontSize: '12px', color: '#6b7280', fontWeight: 600 }}>Low Stock Products</span>
+            <div style={{ color: '#dc2626', padding: '4px', borderRadius: '6px', backgroundColor: '#fee2e2' }}><PackageMinus size={16} /></div>
+          </div>
+          <div style={{ fontSize: '20px', fontWeight: 700, color: '#dc2626' }}>4 Items</div>
+          <div style={{ fontSize: '11px', color: '#9ca3af', marginTop: '6px' }}>Reorder levels met</div>
+        </div>
+
+        {/* Expiring Medicines */}
+        <div className="kpi-card" style={{ padding: '16px', backgroundColor: '#fff', borderRadius: '12px', border: '1px solid #e5e7eb' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+            <span style={{ fontSize: '12px', color: '#6b7280', fontWeight: 600 }}>Expiring Medicines</span>
+            <div style={{ color: '#be185d', padding: '4px', borderRadius: '6px', backgroundColor: '#fce7f3' }}><CalendarCheck size={16} /></div>
+          </div>
+          <div style={{ fontSize: '20px', fontWeight: 700, color: '#be185d' }}>2 Batches</div>
+          <div style={{ fontSize: '11px', color: '#9ca3af', marginTop: '6px' }}>Expiring within 30 days</div>
+        </div>
+
+        {/* Total Customers */}
+        <div className="kpi-card" style={{ padding: '16px', backgroundColor: '#fff', borderRadius: '12px', border: '1px solid #e5e7eb' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+            <span style={{ fontSize: '12px', color: '#6b7280', fontWeight: 600 }}>Total Customers</span>
+            <div style={{ color: '#0369a1', padding: '4px', borderRadius: '6px', backgroundColor: '#e0f2fe' }}><Users size={16} /></div>
+          </div>
+          <div style={{ fontSize: '20px', fontWeight: 700, color: '#1f2937' }}>148 clients</div>
+          <div style={{ fontSize: '11px', color: '#10b981', marginTop: '6px' }}>+4 onboarding today</div>
+        </div>
+
+        {/* Total Suppliers */}
+        <div className="kpi-card" style={{ padding: '16px', backgroundColor: '#fff', borderRadius: '12px', border: '1px solid #e5e7eb' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+            <span style={{ fontSize: '12px', color: '#6b7280', fontWeight: 600 }}>Total Suppliers</span>
+            <div style={{ color: '#0f766e', padding: '4px', borderRadius: '6px', backgroundColor: '#ccfbf1' }}><Briefcase size={16} /></div>
+          </div>
+          <div style={{ fontSize: '20px', fontWeight: 700, color: '#1f2937' }}>36 accounts</div>
+          <div style={{ fontSize: '11px', color: '#9ca3af', marginTop: '6px' }}>Active partnerships</div>
+        </div>
+
       </section>
 
       {/* Charts Panels */}
-      <section className="charts-section">
-        {/* Sales & Purchases Line Graph */}
-        <div className="chart-card">
-          <div className="chart-header">
-            <h3 className="chart-title">Financial Growth Performance</h3>
-          </div>
-          <div className="chart-wrapper">
+      <section style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '20px', marginBottom: '24px' }}>
+        {/* Sales vs Purchase graph */}
+        <div style={{ backgroundColor: '#fff', border: '1px solid #e5e7eb', borderRadius: '12px', padding: '20px' }}>
+          <h3 style={{ margin: '0 0 16px', fontSize: '15px', fontWeight: 700 }}>Sales vs Purchase Performance</h3>
+          <div style={{ height: '240px' }}>
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={salesData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <defs>
@@ -153,152 +180,101 @@ export default function Dashboard() {
                 <YAxis stroke="#9ca3af" fontSize={11} tickLine={false} />
                 <Tooltip />
                 <Legend iconType="circle" wrapperStyle={{ fontSize: '12px' }} />
-                <Area type="monotone" dataKey="Sales" stroke="#7c3aed" strokeWidth={2} fillOpacity={1} fill="url(#colorSales)" name="Sales ($)" />
-                <Area type="monotone" dataKey="Purchases" stroke="#0891b2" strokeWidth={2} fillOpacity={1} fill="url(#colorPurchases)" name="Purchases ($)" />
+                <Area type="monotone" dataKey="Sales" stroke="#7c3aed" strokeWidth={2} fillOpacity={1} fill="url(#colorSales)" name="Monthly Sales (₹)" />
+                <Area type="monotone" dataKey="Purchases" stroke="#0891b2" strokeWidth={2} fillOpacity={1} fill="url(#colorPurchases)" name="Monthly Purchase (₹)" />
               </AreaChart>
             </ResponsiveContainer>
           </div>
         </div>
 
-        {/* Warning and Alerts Side panel */}
-        <div className="chart-card">
-          <div className="chart-header">
-            <h3 className="chart-title">Immediate Operations Alerts</h3>
-          </div>
-          <div className="alerts-list">
-            <div className="alert-item danger">
-              <div className="alert-info">
-                <AlertTriangle size={18} />
-                <span>Paracetamol 500mg: 2 units left</span>
-              </div>
-              <span className="alert-action">Order</span>
+        {/* Immediate Operations Alert */}
+        <div style={{ backgroundColor: '#fff', border: '1px solid #e5e7eb', borderRadius: '12px', padding: '20px' }}>
+          <h3 style={{ margin: '0 0 16px', fontSize: '15px', fontWeight: 700 }}>Immediate Alerts</h3>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <div style={{ display: 'flex', justify: 'space-between', padding: '10px', backgroundColor: '#fee2e2', borderRadius: '8px', fontSize: '12.5px', color: '#991b1b', fontWeight: 600 }}>
+              <span>Paracetamol 500mg (2 left)</span>
+              <span>Reorder Alert</span>
             </div>
-
-            <div className="alert-item danger">
-              <div className="alert-info">
-                <AlertTriangle size={18} />
-                <span>Amoxicillin Syrup: Out of stock</span>
-              </div>
-              <span className="alert-action">Order</span>
+            <div style={{ display: 'flex', justify: 'space-between', padding: '10px', backgroundColor: '#fee2e2', borderRadius: '8px', fontSize: '12.5px', color: '#991b1b', fontWeight: 600 }}>
+              <span>Amoxicillin (Out of Stock)</span>
+              <span>Reorder Alert</span>
             </div>
-
-            <div className="alert-item warning">
-              <div className="alert-info">
-                <AlertTriangle size={18} />
-                <span>Aspirin 81mg expiring on Feb 15</span>
-              </div>
-              <span className="alert-action">Details</span>
-            </div>
-
-            <div className="alert-item warning">
-              <div className="alert-info">
-                <AlertTriangle size={18} />
-                <span>Atorvastatin expiring in 25 days</span>
-              </div>
-              <span className="alert-action">Details</span>
+            <div style={{ display: 'flex', justify: 'space-between', padding: '10px', backgroundColor: '#fef3c7', borderRadius: '8px', fontSize: '12.5px', color: '#92400e', fontWeight: 600 }}>
+              <span>Aspirin 81mg (Expiring soon)</span>
+              <span>Expiry Alert</span>
             </div>
           </div>
         </div>
       </section>
 
       {/* Bottom Grid for Lists */}
-      <section className="data-tables-section">
-        {/* Top Selling Products */}
-        <div className="table-card">
-          <h3 className="table-title">Top Selling Products</h3>
-          <div className="dashboard-table-wrapper">
-            <table className="dashboard-table">
-              <thead>
-                <tr>
-                  <th>Product</th>
-                  <th>SKU</th>
-                  <th>Category</th>
-                  <th>Units Sold</th>
-                  <th>Revenue</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Paracetamol 500mg</td>
-                  <td>MED-PC-500</td>
-                  <td>Medical</td>
-                  <td>1,420</td>
-                  <td>$7,100.00</td>
-                </tr>
-                <tr>
-                  <td>Amoxicillin 250mg</td>
-                  <td>MED-AMX-250</td>
-                  <td>Medical</td>
-                  <td>850</td>
-                  <td>$6,800.00</td>
-                </tr>
-                <tr>
-                  <td>Wireless Optical Mouse</td>
-                  <td>ELE-WM-04</td>
-                  <td>Electronics</td>
-                  <td>120</td>
-                  <td>$2,400.00</td>
-                </tr>
-                <tr>
-                  <td>LED Bulb 9W Premium</td>
-                  <td>HDW-LED-9W</td>
-                  <td>Hardware</td>
-                  <td>320</td>
-                  <td>$1,600.00</td>
-                </tr>
-              </tbody>
-            </table>
+      <section style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+        
+        {/* Top Selling Products & Category wise */}
+        <div style={{ backgroundColor: '#fff', border: '1px solid #e5e7eb', borderRadius: '12px', padding: '20px' }}>
+          <h3 style={{ margin: '0 0 12px', fontSize: '15px', fontWeight: 700 }}>Category Wise & Top Products</h3>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
+            <thead>
+              <tr style={{ borderBottom: '2px solid #f3f4f6' }}>
+                <th style={{ padding: '8px 0' }}>Product</th>
+                <th>Category</th>
+                <th>Units Sold</th>
+                <th style={{ textAlign: 'right' }}>Revenue</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style={{ padding: '10px 0', fontWeight: 600 }}>Paracetamol 500mg</td>
+                <td>Medical</td>
+                <td>1,420</td>
+                <td style={{ textAlign: 'right', fontWeight: 700 }}>₹42,600</td>
+              </tr>
+              <tr>
+                <td style={{ padding: '10px 0', fontWeight: 600 }}>Amoxicillin 250mg</td>
+                <td>Medical</td>
+                <td>850</td>
+                <td style={{ textAlign: 'right', fontWeight: 700 }}>₹25,500</td>
+              </tr>
+              <tr>
+                <td style={{ padding: '10px 0', fontWeight: 600 }}>LED Bulb 9W Premium</td>
+                <td>Hardware</td>
+                <td>320</td>
+                <td style={{ textAlign: 'right', fontWeight: 700 }}>₹9,600</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        {/* Recent Activities & Latest Bills */}
+        <div style={{ backgroundColor: '#fff', border: '1px solid #e5e7eb', borderRadius: '12px', padding: '20px' }}>
+          <h3 style={{ margin: '0 0 12px', fontSize: '15px', fontWeight: 700 }}>Recent Activities & New Logs</h3>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '13px' }}>
+            <div style={{ display: 'flex', justify: 'space-between', borderBottom: '1px solid #f3f4f6', paddingBottom: '8px' }}>
+              <div>
+                <strong>New Customer: Marques Brownley</strong>
+                <div style={{ fontSize: '11px', color: '#9ca3af' }}>Added manually</div>
+              </div>
+              <span style={{ color: '#10b981', fontWeight: 700 }}>Onboarded</span>
+            </div>
+            <div style={{ display: 'flex', justify: 'space-between', borderBottom: '1px solid #f3f4f6', paddingBottom: '8px' }}>
+              <div>
+                <strong>Invoice INV-2026-009</strong>
+                <div style={{ fontSize: '11px', color: '#9ca3af' }}>Cash sale checkout</div>
+              </div>
+              <span style={{ color: '#7c3aed', fontWeight: 700 }}>₹1,250.00</span>
+            </div>
+            <div style={{ display: 'flex', justify: 'space-between', borderBottom: '1px solid #f3f4f6', paddingBottom: '8px' }}>
+              <div>
+                <strong>New Supplier: EcoPack Ltd</strong>
+                <div style={{ fontSize: '11px', color: '#9ca3af' }}>Partner account opened</div>
+              </div>
+              <span style={{ color: '#0369a1', fontWeight: 700 }}>Registered</span>
+            </div>
           </div>
         </div>
 
-        {/* Recent Transactions */}
-        <div className="table-card">
-          <h3 className="table-title">Recent Ledger Transactions</h3>
-          <div className="dashboard-table-wrapper">
-            <table className="dashboard-table">
-              <thead>
-                <tr>
-                  <th>Transaction ID</th>
-                  <th>Entity</th>
-                  <th>Type</th>
-                  <th>Amount</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>TXN-2026-009</td>
-                  <td>Emily Lynch</td>
-                  <td>Sale</td>
-                  <td>$1,250.00</td>
-                  <td><span className="status-badge paid">Paid</span></td>
-                </tr>
-                <tr>
-                  <td>TXN-2026-008</td>
-                  <td>Astra Distributers</td>
-                  <td>Purchase</td>
-                  <td>$5,400.00</td>
-                  <td><span className="status-badge pending">Pending</span></td>
-                </tr>
-                <tr>
-                  <td>TXN-2026-007</td>
-                  <td>Alexander Medvedev</td>
-                  <td>Sale</td>
-                  <td>$890.00</td>
-                  <td><span className="status-badge paid">Paid</span></td>
-                </tr>
-                <tr>
-                  <td>TXN-2026-006</td>
-                  <td>MedLife Wholesalers</td>
-                  <td>Purchase</td>
-                  <td>$2,800.00</td>
-                  <td><span className="status-badge paid">Paid</span></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
       </section>
+
     </div>
   );
 }

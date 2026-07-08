@@ -66,8 +66,8 @@ export default function Reports() {
               <YAxis stroke="#9ca3af" fontSize={11} tickLine={false} />
               <Tooltip />
               <Legend wrapperStyle={{ fontSize: '12px' }} />
-              <Bar dataKey="Sales" fill="#7c3aed" radius={[4, 4, 0, 0]} name="Sales ($)" />
-              <Bar dataKey="Expenses" fill="#0891b2" radius={[4, 4, 0, 0]} name="Expenses ($)" />
+              <Bar dataKey="Sales" fill="#7c3aed" radius={[4, 4, 0, 0]} name="Sales (₹)" />
+              <Bar dataKey="Expenses" fill="#0891b2" radius={[4, 4, 0, 0]} name="Expenses (₹)" />
             </BarChart>
           </ResponsiveContainer>
         </div>
