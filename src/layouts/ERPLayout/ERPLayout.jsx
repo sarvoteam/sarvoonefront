@@ -76,7 +76,7 @@ export default function ERPLayout() {
         <div className="sidebar-header">
           <div className="logo-container">
             <div className="logo-box">S</div>
-            {!isCollapsed && <span className="brand-name">Sarvo ERP</span>}
+            {!isCollapsed && <span className="brand-name">Sarvo One</span>}
           </div>
           <button 
             className="sidebar-toggle-btn" 

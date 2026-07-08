@@ -8,7 +8,7 @@ export default function AuthLayout() {
       <div className="auth-container">
         <div className="auth-header">
           <div className="auth-logo-box">S</div>
-          <h1 className="auth-title">Sarvo ERP</h1>
+          <h1 className="auth-title">Sarvo One</h1>
           <p className="auth-subtitle">Retail, Wholesale & Medical Store Systems</p>
         </div>
         <Outlet />
