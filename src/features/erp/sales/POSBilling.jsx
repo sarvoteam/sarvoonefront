@@ -105,7 +105,7 @@ export default function POSBilling() {
               <div style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', marginBottom: '4px', height: '36px', overflow: 'hidden' }}>{item.name}</div>
               <div style={{ fontSize: '11px', color: '#9ca3af', marginBottom: '8px' }}>SKU: {item.sku}</div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontWeight: 700, color: '#7c3aed', fontSize: '14px' }}>${item.price.toFixed(2)}</span>
+                <span style={{ fontWeight: 700, color: '#7c3aed', fontSize: '14px' }}>₹{item.price.toFixed(2)}</span>
                 <span style={{ fontSize: '11px', color: item.stock > 10 ? '#10b981' : '#f59e0b', fontWeight: 600 }}>{item.stock} left</span>
               </div>
             </div>
@@ -125,7 +125,7 @@ export default function POSBilling() {
             <div key={c.id} style={{ display: 'flex', justify: 'space-between', alignItems: 'center', padding: '10px', border: '1px solid #f3f4f6', borderRadius: '8px' }}>
               <div style={{ flex: 1 }}>
                 <div style={{ fontWeight: 600, fontSize: '13px' }}>{c.name}</div>
-                <div style={{ fontSize: '11px', color: '#9ca3af' }}>${c.price.toFixed(2)}</div>
+                <div style={{ fontSize: '11px', color: '#9ca3af' }}>₹{c.price.toFixed(2)}</div>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginRight: '16px' }}>
                 <button onClick={() => updateQty(c.id, -1)} style={{ background: '#f3f4f6', border: 'none', cursor: 'pointer', padding: '4px', borderRadius: '4px' }}><Minus size={12} /></button>
@@ -148,11 +148,11 @@ export default function POSBilling() {
         <div style={{ borderTop: '1px solid #f3f4f6', paddingTop: '14px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <div style={{ display: 'flex', justify: 'space-between', fontSize: '13px' }}>
             <span style={{ color: '#6b7280' }}>Subtotal</span>
-            <span style={{ fontWeight: 600 }}>${subtotal.toFixed(2)}</span>
+            <span style={{ fontWeight: 600 }}>₹{subtotal.toFixed(2)}</span>
           </div>
           <div style={{ display: 'flex', justify: 'space-between', fontSize: '13px' }}>
             <span style={{ color: '#6b7280' }}>GST (18%)</span>
-            <span style={{ fontWeight: 600 }}>${tax.toFixed(2)}</span>
+            <span style={{ fontWeight: 600 }}>₹{tax.toFixed(2)}</span>
           </div>
           <div style={{ display: 'flex', justify: 'space-between', fontSize: '13px', alignItems: 'center' }}>
             <span style={{ color: '#6b7280' }}>Discount %</span>
@@ -169,7 +169,7 @@ export default function POSBilling() {
           </div>
           <div style={{ display: 'flex', justify: 'space-between', fontSize: '16px', fontWeight: 800, borderTop: '1px solid #f3f4f6', paddingTop: '8px', color: '#1f2937' }}>
             <span>Total Payable</span>
-            <span style={{ color: '#7c3aed' }}>${total.toFixed(2)}</span>
+            <span style={{ color: '#7c3aed' }}>₹{total.toFixed(2)}</span>
           </div>
         </div>
 
@@ -214,15 +214,15 @@ export default function POSBilling() {
                 {lastOrder.items.map(item => (
                   <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
                     <span>{item.name} x {item.qty}</span>
-                    <span>${(item.price * item.qty).toFixed(2)}</span>
+                    <span>₹{(item.price * item.qty).toFixed(2)}</span>
                   </div>
                 ))}
               </div>
               <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}><span>Subtotal</span><span>${lastOrder.subtotal.toFixed(2)}</span></div>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}><span>GST (18%)</span><span>${lastOrder.tax.toFixed(2)}</span></div>
-                {lastOrder.discount > 0 && <div style={{ display: 'flex', justifyContent: 'space-between', color: '#ef4444' }}><span>Discount</span><span>-${lastOrder.discount.toFixed(2)}</span></div>}
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', fontSize: '13px', marginTop: '6px' }}><span>TOTAL PAID</span><span>${lastOrder.total.toFixed(2)}</span></div>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}><span>Subtotal</span><span>₹{lastOrder.subtotal.toFixed(2)}</span></div>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}><span>GST (18%)</span><span>₹{lastOrder.tax.toFixed(2)}</span></div>
+                {lastOrder.discount > 0 && <div style={{ display: 'flex', justifyContent: 'space-between', color: '#ef4444' }}><span>Discount</span><span>-₹{lastOrder.discount.toFixed(2)}</span></div>}
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', fontSize: '13px', marginTop: '6px' }}><span>TOTAL PAID</span><span>₹{lastOrder.total.toFixed(2)}</span></div>
               </div>
             </div>
 

@@ -50,8 +50,6 @@ export default function Settings() {
                 style={{ width: '100%', padding: '10px', border: '1px solid #d1d5db', borderRadius: '8px', backgroundColor: '#fff' }}
               >
                 <option value="INR (₹)">INR (₹)</option>
-                <option value="USD ($)">USD ($)</option>
-                <option value="EUR (€)">EUR (€)</option>
               </select>
             </div>
           </div>

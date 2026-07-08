@@ -76,10 +76,10 @@ export default function EmployeeManagement() {
                     {e.attendance}
                   </span>
                 </td>
-                <td style={{ padding: '12px', fontWeight: 700 }}>${e.salary.toLocaleString()}</td>
+                <td style={{ padding: '12px', fontWeight: 700 }}>₹{e.salary.toLocaleString()}</td>
                 <td style={{ padding: '12px', textAlign: 'right' }}>
                   <button 
-                    onClick={() => alert(`Generating pay slip for ${e.name} of amount $${e.salary}...`)}
+                    onClick={() => alert(`Generating pay slip for ${e.name} of amount ₹${e.salary}...`)}
                     style={{ border: '1px solid #e5e7eb', padding: '6px 12px', borderRadius: '6px', fontSize: '11px', fontWeight: 700, color: '#7c3aed', cursor: 'pointer', backgroundColor: '#fff' }}
                   >
                     Generate Salary Slip

@@ -10,6 +10,10 @@ export default function InventoryForm({ isOpen, onClose, onSubmit, initialData =
   const [unit, setUnit] = useState('box');
   const [purchasePrice, setPurchasePrice] = useState('');
   const [sellingPrice, setSellingPrice] = useState('');
+  const [batchNumber, setBatchNumber] = useState('');
+  const [expiryDate, setExpiryDate] = useState('');
+  const [damagedStock, setDamagedStock] = useState(0);
+  const [warehouseStock, setWarehouseStock] = useState('Central Warehouse');
 
   useEffect(() => {
     if (initialData) {
@@ -21,6 +25,10 @@ export default function InventoryForm({ isOpen, onClose, onSubmit, initialData =
       setUnit(initialData.unit || 'box');
       setPurchasePrice(initialData.purchasePrice || '');
       setSellingPrice(initialData.sellingPrice || '');
+      setBatchNumber(initialData.batchNumber || '');
+      setExpiryDate(initialData.expiryDate || '');
+      setDamagedStock(initialData.damagedStock ?? 0);
+      setWarehouseStock(initialData.warehouseStock || 'Central Warehouse');
     } else {
       setName('');
       setSku('');
@@ -30,6 +38,10 @@ export default function InventoryForm({ isOpen, onClose, onSubmit, initialData =
       setUnit('box');
       setPurchasePrice('');
       setSellingPrice('');
+      setBatchNumber('');
+      setExpiryDate('');
+      setDamagedStock(0);
+      setWarehouseStock('Central Warehouse');
     }
   }, [initialData, isOpen]);
 
@@ -48,7 +60,11 @@ export default function InventoryForm({ isOpen, onClose, onSubmit, initialData =
       reorderLevel: Number(reorderLevel),
       unit,
       purchasePrice: Number(purchasePrice),
-      sellingPrice: Number(sellingPrice)
+      sellingPrice: Number(sellingPrice),
+      batchNumber,
+      expiryDate,
+      damagedStock: Number(damagedStock),
+      warehouseStock
     });
   };
 
@@ -65,17 +81,19 @@ export default function InventoryForm({ isOpen, onClose, onSubmit, initialData =
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      zIndex: 1000,
+      zIndex: 10000,
       fontFamily: 'system-ui, sans-serif'
     }}>
       <div style={{
         backgroundColor: '#ffffff',
         width: '100%',
-        maxWidth: '500px',
+        maxWidth: '540px',
         borderRadius: '16px',
         boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)',
         padding: '24px',
-        boxSizing: 'border-box'
+        boxSizing: 'border-box',
+        maxHeight: '90vh',
+        overflowY: 'auto'
       }}>
         {/* Header */}
         <div style={{
@@ -87,7 +105,7 @@ export default function InventoryForm({ isOpen, onClose, onSubmit, initialData =
           marginBottom: '20px'
         }}>
           <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 700, color: '#1f2937' }}>
-            {initialData ? 'Edit Inventory Item' : 'Add New Inventory Item'}
+            {initialData ? 'Edit Inventory Ledger' : 'Add Inventory Ledger'}
           </h3>
           <button 
             onClick={onClose}
@@ -105,9 +123,9 @@ export default function InventoryForm({ isOpen, onClose, onSubmit, initialData =
         </div>
 
         {/* Form Body */}
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
           <div>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#4b5563', marginBottom: '6px' }}>
+            <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#4b5563', marginBottom: '4px' }}>
               Product Name *
             </label>
             <input
@@ -117,7 +135,7 @@ export default function InventoryForm({ isOpen, onClose, onSubmit, initialData =
               onChange={(e) => setName(e.target.value)}
               style={{
                 width: '100%',
-                padding: '10px 12px',
+                padding: '8px 12px',
                 border: '1px solid #d1d5db',
                 borderRadius: '8px',
                 outline: 'none',
@@ -126,9 +144,9 @@ export default function InventoryForm({ isOpen, onClose, onSubmit, initialData =
             />
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
             <div>
-              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#4b5563', marginBottom: '6px' }}>
+              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#4b5563', marginBottom: '4px' }}>
                 SKU Code *
               </label>
               <input
@@ -136,32 +154,17 @@ export default function InventoryForm({ isOpen, onClose, onSubmit, initialData =
                 placeholder="MED-PC-500"
                 value={sku}
                 onChange={(e) => setSku(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '10px 12px',
-                  border: '1px solid #d1d5db',
-                  borderRadius: '8px',
-                  outline: 'none',
-                  boxSizing: 'border-box'
-                }}
+                style={{ width: '100%', padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: '8px', boxSizing: 'border-box' }}
               />
             </div>
             <div>
-              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#4b5563', marginBottom: '6px' }}>
+              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#4b5563', marginBottom: '4px' }}>
                 Category
               </label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '10px 12px',
-                  border: '1px solid #d1d5db',
-                  borderRadius: '8px',
-                  outline: 'none',
-                  boxSizing: 'border-box',
-                  backgroundColor: '#fff'
-                }}
+                style={{ width: '100%', padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: '8px', boxSizing: 'border-box', backgroundColor: '#fff' }}
               >
                 <option value="Medical">Medical</option>
                 <option value="Electronics">Electronics</option>
@@ -173,134 +176,130 @@ export default function InventoryForm({ isOpen, onClose, onSubmit, initialData =
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px' }}>
             <div>
-              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#4b5563', marginBottom: '6px' }}>
-                Stock Quantity
+              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#4b5563', marginBottom: '4px' }}>
+                Stock Count
               </label>
               <input
                 type="number"
                 value={stock}
                 onChange={(e) => setStock(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '10px 12px',
-                  border: '1px solid #d1d5db',
-                  borderRadius: '8px',
-                  outline: 'none',
-                  boxSizing: 'border-box'
-                }}
+                style={{ width: '100%', padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: '8px', boxSizing: 'border-box' }}
               />
             </div>
             <div>
-              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#4b5563', marginBottom: '6px' }}>
+              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#4b5563', marginBottom: '4px' }}>
                 Reorder Level
               </label>
               <input
                 type="number"
                 value={reorderLevel}
                 onChange={(e) => setReorderLevel(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '10px 12px',
-                  border: '1px solid #d1d5db',
-                  borderRadius: '8px',
-                  outline: 'none',
-                  boxSizing: 'border-box'
-                }}
+                style={{ width: '100%', padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: '8px', boxSizing: 'border-box' }}
               />
             </div>
             <div>
-              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#4b5563', marginBottom: '6px' }}>
+              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#4b5563', marginBottom: '4px' }}>
                 Unit Type
               </label>
               <input
                 type="text"
-                placeholder="box / tablet"
+                placeholder="box"
                 value={unit}
                 onChange={(e) => setUnit(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '10px 12px',
-                  border: '1px solid #d1d5db',
-                  borderRadius: '8px',
-                  outline: 'none',
-                  boxSizing: 'border-box'
-                }}
+                style={{ width: '100%', padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: '8px', boxSizing: 'border-box' }}
               />
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
             <div>
-              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#4b5563', marginBottom: '6px' }}>
-                Purchase Price ($)
+              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#4b5563', marginBottom: '4px' }}>
+                Batch Number
+              </label>
+              <input
+                type="text"
+                placeholder="BAT-99201"
+                value={batchNumber}
+                onChange={(e) => setBatchNumber(e.target.value)}
+                style={{ width: '100%', padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: '8px', boxSizing: 'border-box' }}
+              />
+            </div>
+            <div>
+              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#4b5563', marginBottom: '4px' }}>
+                Expiry Date
+              </label>
+              <input
+                type="date"
+                value={expiryDate}
+                onChange={(e) => setExpiryDate(e.target.value)}
+                style={{ width: '100%', padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: '8px', boxSizing: 'border-box' }}
+              />
+            </div>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+            <div>
+              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#4b5563', marginBottom: '4px' }}>
+                Damaged Stock
               </label>
               <input
                 type="number"
-                step="0.01"
-                placeholder="4.00"
+                value={damagedStock}
+                onChange={(e) => setDamagedStock(Number(e.target.value))}
+                style={{ width: '100%', padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: '8px', boxSizing: 'border-box' }}
+              />
+            </div>
+            <div>
+              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#4b5563', marginBottom: '4px' }}>
+                Warehouse Location
+              </label>
+              <select
+                value={warehouseStock}
+                onChange={(e) => setWarehouseStock(e.target.value)}
+                style={{ width: '100%', padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: '8px', boxSizing: 'border-box', backgroundColor: '#fff' }}
+              >
+                <option value="Central Warehouse">Central Warehouse</option>
+                <option value="City Retail Depot">City Retail Depot</option>
+              </select>
+            </div>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+            <div>
+              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#4b5563', marginBottom: '4px' }}>
+                Purchase Price (₹)
+              </label>
+              <input
+                type="number"
                 value={purchasePrice}
                 onChange={(e) => setPurchasePrice(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '10px 12px',
-                  border: '1px solid #d1d5db',
-                  borderRadius: '8px',
-                  outline: 'none',
-                  boxSizing: 'border-box'
-                }}
+                style={{ width: '100%', padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: '8px', boxSizing: 'border-box' }}
               />
             </div>
             <div>
-              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#4b5563', marginBottom: '6px' }}>
-                Selling Price ($)
+              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#4b5563', marginBottom: '4px' }}>
+                Selling Price (₹)
               </label>
               <input
                 type="number"
-                step="0.01"
-                placeholder="5.00"
                 value={sellingPrice}
                 onChange={(e) => setSellingPrice(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '10px 12px',
-                  border: '1px solid #d1d5db',
-                  borderRadius: '8px',
-                  outline: 'none',
-                  boxSizing: 'border-box'
-                }}
+                style={{ width: '100%', padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: '8px', boxSizing: 'border-box' }}
               />
             </div>
           </div>
 
-          <div style={{ display: 'flex', gap: '12px', marginTop: '14px' }}>
+          <div style={{ display: 'flex', gap: '12px', marginTop: '10px' }}>
             <button
               type="button"
               onClick={onClose}
-              style={{
-                flex: 1,
-                padding: '12px',
-                border: '1px solid #d1d5db',
-                borderRadius: '8px',
-                backgroundColor: '#ffffff',
-                fontWeight: 600,
-                color: '#374151',
-                cursor: 'pointer'
-              }}
+              style={{ flex: 1, padding: '10px', border: '1px solid #d1d5db', borderRadius: '8px', backgroundColor: '#ffffff', fontWeight: 600, color: '#374151', cursor: 'pointer' }}
             >
               Cancel
             </button>
             <button
               type="submit"
-              style={{
-                flex: 1,
-                padding: '12px',
-                border: 'none',
-                borderRadius: '8px',
-                backgroundColor: '#7c3aed',
-                fontWeight: 600,
-                color: '#ffffff',
-                cursor: 'pointer'
-              }}
+              style={{ flex: 1, padding: '10px', border: 'none', borderRadius: '8px', backgroundColor: '#7c3aed', fontWeight: 600, color: '#ffffff', cursor: 'pointer' }}
             >
               Save Item
             </button>

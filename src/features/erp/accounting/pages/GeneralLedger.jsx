@@ -48,11 +48,11 @@ export default function GeneralLedger() {
       <div className="ledger-summary-header">
         <div className="ledger-summary-card">
           <span className="ledger-card-label">Total Assets Balance</span>
-          <span className="ledger-card-value">$23,130.00</span>
+          <span className="ledger-card-value">₹23,130.00</span>
         </div>
         <div className="ledger-summary-card">
           <span className="ledger-card-label">Liabilities + Equity</span>
-          <span className="ledger-card-value">$17,800.00</span>
+          <span className="ledger-card-value">₹17,800.00</span>
         </div>
         <div className="ledger-summary-card" style={{ borderLeft: '4px solid #10b981' }}>
           <span className="ledger-card-label">Trial Balance Status</span>
@@ -77,7 +77,7 @@ export default function GeneralLedger() {
                   <span className="account-code">{acc.code} • {acc.type}</span>
                   <span className="account-name">{acc.name}</span>
                 </div>
-                <span className="account-balance">${acc.balance.toLocaleString()}</span>
+                <span className="account-balance">₹{acc.balance.toLocaleString()}</span>
               </div>
             ))}
           </div>
@@ -101,9 +101,9 @@ export default function GeneralLedger() {
                   <th>Date</th>
                   <th>Reference</th>
                   <th>Description</th>
-                  <th style={{ textAlign: 'right' }}>Debit ($)</th>
-                  <th style={{ textAlign: 'right' }}>Credit ($)</th>
-                  <th style={{ textAlign: 'right' }}>Running Balance ($)</th>
+                  <th style={{ textAlign: 'right' }}>Debit (₹)</th>
+                  <th style={{ textAlign: 'right' }}>Credit (₹)</th>
+                  <th style={{ textAlign: 'right' }}>Running Balance (₹)</th>
                 </tr>
               </thead>
               <tbody>
@@ -119,7 +119,7 @@ export default function GeneralLedger() {
                       {t.credit > 0 ? `-${t.credit.toFixed(2)}` : '-'}
                     </td>
                     <td style={{ textAlign: 'right', fontWeight: 700, color: '#111827' }}>
-                      ${t.bal.toFixed(2)}
+                      ₹{t.bal.toFixed(2)}
                     </td>
                   </tr>
                 ))}
