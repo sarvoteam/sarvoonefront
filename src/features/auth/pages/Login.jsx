@@ -23,19 +23,15 @@ export default function Login() {
     // Mock API Auth Validation Call
     setTimeout(() => {
       setLoading(false);
-      // Let's accept any admin credential or check matches
-      if (email === 'admin@sarvo.com' && password === 'admin') {
-        localStorage.setItem('sarvo_token', 'mock_jwt_token_xxxxxx');
-        localStorage.setItem('sarvo_user', JSON.stringify({
-          name: 'Emily Lynch',
-          email: 'admin@sarvo.com',
-          role: 'Admin',
-          avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=120'
-        }));
-        navigate('/dashboard');
-      } else {
-        setError('Invalid email or password. Use admin@sarvo.com / admin');
-      }
+      // Accept any email and password combination to bypass login block for testing
+      localStorage.setItem('sarvo_token', 'mock_jwt_token_xxxxxx');
+      localStorage.setItem('sarvo_user', JSON.stringify({
+        name: email.split('@')[0].toUpperCase(),
+        email: email,
+        role: 'Admin',
+        avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=120'
+      }));
+      navigate('/dashboard');
     }, 800);
   };
 

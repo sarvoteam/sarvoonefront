@@ -203,7 +203,7 @@ export default function POSBilling() {
 
             {/* Thermal Receipt Body */}
             <div style={{ border: '1px solid #e5e7eb', padding: '16px', backgroundColor: '#f9fafb', borderRadius: '8px', fontFamily: 'monospace', fontSize: '12px', color: '#374151' }}>
-              <div style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '14px', marginBottom: '4px' }}>SARVO ERP STORE</div>
+              <div style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '14px', marginBottom: '4px' }}>SARVO ONE STORE</div>
               <div style={{ textAlign: 'center', marginBottom: '8px' }}>123 Retail Lane, Hub</div>
               <div style={{ borderBottom: '1px dashed #d1d5db', paddingBottom: '6px', marginBottom: '8px' }}>
                 <div>Order: {lastOrder.orderNo}</div>
